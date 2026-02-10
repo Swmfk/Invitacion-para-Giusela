@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 Invitación Especial para Giusela 💕</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Parisienne&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #f8fafc 100%);
+            font-family: 'Dancing Script', cursive;
+            overflow: hidden;
+            position: relative;
+            touch-action: manipulation;
+        }
+        
+        /* Inimi mici care se ciocnesc LENT pe fundal */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .bg-heart {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: rgba(236, 72, 153, 0.5);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: collideSlow 25s linear infinite;
+        }
+        
+        /* Giusela pe fundal mesajului */
+        .giusela-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Parisienne', cursive;
+            font-size: clamp(3em, 8vw, 6em);
+            color: rgba(236, 72, 153, 0.7);
+            pointer-events: none;
+            z-index: 3;
+            animation: heartbeat 2s ease-in-out infinite;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            padding: clamp(30px, 8vw, 50px);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(236, 72, 153, 0.3);
+            max-width: 90vw;
+            max-width: 500px;
+            z-index: 10;
+            position: relative;
+            border: 2px solid rgba(236, 72, 153, 0.3);
+        }
+        
+        h1 {
+            font-size: clamp(2em, 6vw, 3em);
+            background: linear-gradient(45deg, #ec4899, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .mensaje {
+            display: none;
+            font-size: clamp(1.2em, 4vw, 1.6em);
+            color: #be185d;
+            line-height: 1.5;
+            margin: 30px 0;
+            animation: slideIn 1s ease-out;
+            font-weight: 400;
+            position: relative;
+            z-index: 4;
+        }
+        
+        /* Buton roz cu gradient animat */
+        button {
+            background: linear-gradient(-45deg, #f472b6, #ec4899, #f472b6, #ec4899);
+            background-size: 400% 400%;
+            color: white;
+            border: none;
+            padding: clamp(15px, 4vw, 20px) clamp(30px, 8vw, 40px);
+            font-size: clamp(1.3em, 4vw, 1.6em);
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Dancing Script', cursive;
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+            transition: all 0.3s ease;
+            font-weight: 700;
+            animation: gradientShift 4s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.6);
+        }
+        
+        .accept-btn {
+            display: none;
+            background: linear-gradient(-45deg, #f472b6, #ec4899, #f472b6);
+            animation: gradientShift 3s ease infinite;
+            font-size: clamp(1.4em, 5vw, 1.8em);
+        }
+        
+        /* Explozie inimi la Accept */
+        .explosion {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 20;
+            display: none;
+        }
+        
+        .explode-heart {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #ec4899;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: explode 2s ease-out forwards;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+        
+        @keyframes collideSlow {
+            0% { 
+                transform: translateY(100vh) rotate(0deg) scale(1) translateX(0px);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            50% { 
+                transform: translateY(50vh) rotate(180deg) scale(1.2) translateX(50px);
+            }
+            100% { 
+                transform: translateY(-20px) rotate(360deg) scale(0.8) translateX(-30px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(720deg);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .container { margin: 20px; padding: 25px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Inimi fundal care se ciocnesc -->
+    <div class="hearts-bg" id="heartsBg"></div>
+    
+    <!-- Explozie inimi -->
+    <div class="explosion" id="explosion"></div>
+    
+    <div class="container">
+        <h1>💕 Invitación Especial 💕</h1>
+        <button onclick="abrirInvitacion()">Abrir Invitación</button>
+        <div class="giusela-overlay" id="giuselaOverlay">Giusela</div>
+        <div id="mensaje" class="mensaje">
+            Querida amada, te invito el Día de los Enamorados a una salida conmigo en un restaurante encantador, una salida que no te permito rechazar. ¡Te amo!
+        </div>
+        <button id="acceptBtn" class="accept-btn" onclick="aceptar()">Aceptar</button>
+    </div>
+
+    <script>
+        // Inimi care se ciocnesc LENT pe fundal
+        function createCollidingHearts() {
+            const container = document.getElementById('heartsBg');
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'bg-heart';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 10 + 20) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+                setTimeout(() => heart.remove(), 30000);
+            }, 800);
+        }
+        
+        // Arată Giusela pe fundal + mesaj
+        function abrirInvitacion() {
+            document.getElementById('mensaje').style.display = 'block';
+            document.getElementById('giuselaOverlay').style.opacity = '1';
+            document.querySelector('button[onclick="abrirInvitacion()"]').style.display = 'none';
+            setTimeout(() => {
+                document.getElementById('acceptBtn').style.display = 'inline-block';
+            }, 1000);
+        }
+        
+        // Explozie inimi + confirmare
+        function aceptar() {
+            createHeartExplosion();
+            document.querySelector('.giusela-overlay').style.color = 'rgba(16, 185, 129, 0.8)';
+            setTimeout(() => {
+                alert('¡Perfecto Giusela! 💕\nTe espero el 14 de febrero en nuestro restaurante especial.\n¡Noche mágica confirmada! 😍');
+            }, 1500);
+        }
+        
+        function createHeartExplosion() {
+            const explosion = document.getElementById('explosion');
+            explosion.style.display = 'block';
+            
+            for(let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'explode-heart';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = Math.random() * 100 + 'vh';
+                    explosion.appendChild(heart);
+                    setTimeout(() => heart.remove(), 2000);
+                }, i * 50);
+            }
+            
+            setTimeout(() => {
+                explosion.style.display = 'none';
+            }, 4000);
+        }
+        
+        // Pornește animațiile
+        createCollidingHearts();
+    </script>
+</body>
+</html>
